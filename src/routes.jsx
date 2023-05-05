@@ -6,6 +6,7 @@ import Checkout from "./routes/checkout/checkout.component";
 import Error from "./routes/error/error.component";
 import Home from "./routes/home/home.component";
 import Shop from "./routes/shop/shop.component";
+import CategoriesPreview from "./routes/categories-preview/categories-preview.component";
 
 const routes = createBrowserRouter([
   {
@@ -14,8 +15,15 @@ const routes = createBrowserRouter([
     errorElement: <Error />,
     children: [
       { index: true, element: <Home /> },
-      { path: "shop", element: <Shop /> },
-      { path: "shop/:category", element: <Category /> },
+      {
+        path: "shop",
+        element: <Shop />,
+        children: [
+          { index: true, element: <CategoriesPreview /> },
+          { path: ":category", element: <Category /> },
+        ],
+      },
+
       { path: "sign-in", element: <Authentication /> },
       { path: "checkout", element: <Checkout /> },
     ],
